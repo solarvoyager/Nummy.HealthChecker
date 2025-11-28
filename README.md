@@ -40,49 +40,19 @@ using Nummy.HttpLogger.Models;
 ```csharp
 // .. other configurations
 
-builder.Services.AddNummyCodeLogger(options =>
+builder.Services.AddNummyHealthChecker(options =>
 {
     // from your application's configuration section in Nummy
-    options.NummyServiceUrl = "your-nummy-service-url";
-    options.ApplicationId = "your-nummy-application-id";
+    options.CheckPeriodSeconds = 5; // default is 5 sec
 }
 
 // .. other configurations
 var app = builder.Build();
 ```
 
-#### 4. Now, your application is set up to log using the Nummy Code Logger.
+#### 4. Now, your application is set up using the Nummy Health Checker.
 
-Inject `INummyCodeLoggerService` as a normal service:
-
-```csharp
-private readonly INummyCodeLoggerService _loggerService;
-
-public ConstructorOfYourClass(INummyCodeLoggerService loggerService)
-{
-    _loggerService = loggerService;
-}
-```
-
-And use it like:
-
-```csharp
-// log infos
-await _loggerService.LogInfoAsync("your-info-title", "your-info-description");
-// or
-await _loggerService.LogInfoAsync(new ArgumentNullException(nameof(YourClass.Property)));
-
-// log errors
-await _loggerService.LogErrorAsync("your-error-title", "your-error-description");
-// or
-await _loggerService.LogErrorAsync(new ArgumentNullException(nameof(YourClass.Property)));
-
-// log customized
-await _loggerService.LogAsync(NummyCodeLogLevel.Debug, new ArgumentNullException(nameof(YourClass.Property)));
-await _loggerService.LogAsync(NummyCodeLogLevel.Debug, "custom-title", "custom-description");
-
-// and log much more ..
-```
+You can see it's status in Nummy.
 
 ## License
 

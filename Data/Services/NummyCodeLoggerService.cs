@@ -1,10 +1,8 @@
 ﻿using System.Net.Http.Json;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Nummy.CodeLogger.Data.Entitites;
-using Nummy.CodeLogger.Utils;
+using Nummy.HealthChecker.Data.Entitites;
+using Nummy.HealthChecker.Utils;
 
-namespace Nummy.CodeLogger.Data.Services;
+namespace Nummy.HealthChecker.Data.Services;
 
 internal class NummyCodeLoggerService(
     IHttpClientFactory clientFactory,

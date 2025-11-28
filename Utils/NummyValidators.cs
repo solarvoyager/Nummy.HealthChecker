@@ -1,22 +1,12 @@
-﻿using Nummy.CodeLogger.Utils.Exceptions;
+﻿using Nummy.HealthChecker.Utils.Exceptions;
 
-namespace Nummy.CodeLogger.Utils;
+namespace Nummy.HealthChecker.Utils;
 
 internal static class NummyValidators
 {
-    public static void ValidateNummyCodeLoggerOptions(NummyCodeLoggerOptions options)
+    public static void ValidateNummyHealthCheckerOptions(NummyHealthCheckerOptions options)
     {
-        var isValidApplicationId = !string.IsNullOrWhiteSpace(options.ApplicationId) &&
-                          Guid.TryParse(options.ApplicationId, out var guid) &&
-                          guid != Guid.Empty;
-        
-        var isValidNummyServiceUrl = !string.IsNullOrWhiteSpace(options.NummyServiceUrl) &&
-                                   Uri.TryCreate(options.NummyServiceUrl, UriKind.Absolute, out var uri);
-        
-        if (!isValidApplicationId)
-            throw new ApplicationIdValidationException();
-        
-        if(!isValidNummyServiceUrl)
-            throw new NummyServiceUrlValidationException();
+        if (options.CheckPeriodSeconds < 5)
+            throw new NummyCheckPeriodSecondsValidationException();
     }
 }

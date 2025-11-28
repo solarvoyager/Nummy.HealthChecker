@@ -1,6 +1,6 @@
-﻿using Nummy.CodeLogger.Data.Entitites;
+﻿using Nummy.HealthChecker.Data.Entitites;
 
-namespace Nummy.CodeLogger.Data.Services;
+namespace Nummy.HealthChecker.Data.Services;
 
 public interface INummyCodeLoggerService
 {

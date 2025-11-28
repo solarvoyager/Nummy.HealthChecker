@@ -1,4 +1,4 @@
-﻿namespace Nummy.CodeLogger.Data.Entitites;
+﻿namespace Nummy.HealthChecker.Data.Entitites;
 
 internal class NummyCodeLog
 {
