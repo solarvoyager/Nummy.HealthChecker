@@ -33,21 +33,42 @@ Install-Package Nummy.HealthChecker
 In your `Program.cs` file add the following line:
 
 ```csharp
-using Nummy.HttpLogger.Extensions;
-using Nummy.HttpLogger.Models;
+using Nummy.HealthChecker.Extensions;
+using Nummy.HealthChecker.Entites;
 ```
 
 ```csharp
 // .. other configurations
 
+// Register checker and configure the check
 builder.Services.AddNummyHealthChecker(options =>
 {
-    // from your application's configuration section in Nummy
-    options.CheckPeriodSeconds = 5; // default is 5 sec
-}
+    options.Path = "nummy/health"; // default is nummy/health
+
+    options.CheckAsync = async (sp, ct) =>
+    {
+        // Example: use services from DI
+        // var db = sp.GetRequiredService<MyDbContext>();
+        // await db.Database.ExecuteSqlRawAsync("SELECT 1", ct);
+
+        // For now: simple “OK”
+        return new NummyHealthResult
+        {
+            IsHealthy = true,
+            Message = "Service is healthy"
+        };
+    };
+});
 
 // .. other configurations
 var app = builder.Build();
+
+// Map Health endpoint
+app.MapNummyHealthChecker();
+// Other endpoints, e.g. controllers
+app.MapControllers();
+
+// .. other configurations
 ```
 
 #### 4. Now, your application is set up using the Nummy Health Checker.
