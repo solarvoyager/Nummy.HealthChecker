@@ -12,6 +12,7 @@ public class NummyHealthCheckerOptions
     /// <summary>
     /// Main check function.
     /// Returns NummyHealthResult with IsHealthy = true (healthy), IsHealthy = false (unhealthy).
+    /// Keep default, if you don't want to custom checks like db connections..
     /// </summary>
     public Func<IServiceProvider, CancellationToken, Task<NummyHealthResult>> CheckAsync { get; set; }
         = DefaultCheckAsync;
